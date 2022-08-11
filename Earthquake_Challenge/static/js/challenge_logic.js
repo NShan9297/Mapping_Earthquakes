@@ -235,9 +235,9 @@ legend.onAdd = function() {
     legend.addTo(map);
       
         // then we add the earthquake layer to our map
-        earthquakes.addTo(tectonicPlates);
+        allEarthquakes.addTo(tectonicPlates);
     
-    ;})})
+    ;})
 
   // 4. Use d3.json to make a call to get our Tectonic Plate geoJSON data.
   d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson").then(function(data) {
@@ -254,22 +254,17 @@ legend.onAdd = function() {
     } 
     // This function determines the color of the circle based on the magnitude of the earthquake.
     function getColor(magnitude) {
-        if (magnitude > 4.5) {
+        if (magnitude > 6) {
           return "#ea2c2c";
         }
-        if (magnitude > 4) {
+        if (magnitude > 5) {
           return "#ea822c";
         }
-        if (magnitude > 3) {
-          return "#ee9c00";
+        if (magnitude < 5) {
+          return "#ee9c00";      
+        
         }
-        if (magnitude > 2) {
-          return "#eecc00";
-        }
-        if (magnitude > 1) {
-          return "#d4ee00";
-        }
-        return "#98ee00";
+        return "#";
       }
     // This function determines the radius of the earthquake marker based on its magnitude.
     // Earthquakes with a magnitude of 0 will be plotted with a radius of 1.
@@ -326,6 +321,6 @@ let myStyle = {
     legend.addTo(map);
       
         // then we add the earthquake layer to our map
-        earthquakes.addTo(majEQs);
+        allEarthquakes.addTo(majEQs);
     
-    ;})
+    })})
