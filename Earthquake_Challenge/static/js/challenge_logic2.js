@@ -15,6 +15,13 @@ let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/sate
 	accessToken: API_KEY
 });
 
+// We create the third tile layer that will be the background of our map.
+let dark = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    accessToken: API_KEY
+});
+
 // Create the map object with center, zoom level and default layer.
 let map = L.map('mapid', {
 	center: [40.7, -94.5],
@@ -25,7 +32,8 @@ let map = L.map('mapid', {
 // Create a base layer that holds all three maps.
 let baseMaps = {
   "Streets": streets,
-  "Satellite": satelliteStreets
+  "Satellite": satelliteStreets,
+  "Dark": dark
 };
 
 // 1. Add a 2nd layer group for the tectonic plate data.
@@ -236,7 +244,7 @@ legend.onAdd = function() {
     function styleInfo(feature) {
       return {
         opacity: 1,
-        fillOpacity: 0.5,
+        fillOpacity: 0.8,
         fillColor: "#ff0000",
         color: "#ff0000",
         radius: getRadius(feature.properties.mag),
@@ -266,14 +274,14 @@ legend.onAdd = function() {
     // This function determines the radius of the earthquake marker based on its magnitude.
     // Earthquakes with a magnitude of 0 will be plotted with a radius of 1.
     function getRadius(magnitude) {
-      if (magnitude === 0) {
-        return 1;
+      if (magnitude === 4.5) {
+        return 0;
       }
       return magnitude * 4;
     }
     // Create a style for the lines.
 let myStyle = {
-    color: "#ffffa1",
+    color: "#Earthquake_Challenge/index.html",
     weight: 3
 }
     // Creating a GeoJSON layer with the retrieved data.
@@ -301,7 +309,7 @@ let myStyle = {
         const colors = [
           "#98ee00",
           "#d4ee00",
-          "#eecc00",
+          "#ff0000",
           
         ];
     
